@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 9d1f487926ed66c49983dfc0234db591
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - meuRigidbody: {instanceID: 0}
+  - prefabProjetil: {fileID: 5958583574594986000, guid: e6c2ba3716b8bf9478d31bae69b6d871, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
