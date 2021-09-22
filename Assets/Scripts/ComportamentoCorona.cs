@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ComportamentoCorona : MonoBehaviour
 {
+    public static System.Action CoronaMorto = null;
     public Rigidbody2D meuRigidbody;
     public Rigidbody2D prefabCoroninha;
 
+    public EfeitoAsteroideDestruido efeitoAsteroideDestruido;
+
     public float velocidadeMaxima = 1.0f;
-    public float velocidadeCoroninha = 0.5f;
+    public int quantidadeCoroninha = 4;
 
     void Start()
     {
@@ -19,17 +22,19 @@ public class ComportamentoCorona : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D outro)
     {
-        Destroy(gameObject);
-        Destroy(outro.gameObject);
+        Instantiate(efeitoAsteroideDestruido, meuRigidbody.position, Quaternion.identity); 
 
         //Solta 4 asteroides pequenos quando destruido
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < quantidadeCoroninha; i++)
         {
             Rigidbody2D fragmento = Instantiate(prefabCoroninha,meuRigidbody.position,Quaternion.identity);
-            fragmento.velocity = transform.up * velocidadeCoroninha;
         }
 
-        
-
+        if(CoronaMorto != null)
+        {
+            CoronaMorto();
+        }
+        Destroy(gameObject);
+        Destroy(outro.gameObject);
     }
 }

@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class MovimentoVacina : MonoBehaviour
 {
+    public static System.Action FimDeJogo = null;
     public Rigidbody2D meuRigidbody;
     public float aceleracao = 1.0f;
+    public float coice = -1.0f;
     public float velocidadeAngular = 180.0f;
     public float velocidadeMaxima = 10.0f;
 
     public Rigidbody2D prefabProjetil;
     public float velocidadeProjetil = 10.0f;
 
+    public AudioSource somDoTiro;
+    public AudioSource gripezinha;
+
     void Start()
     {
+        //somDoTiro = GetComponent<AudioSource>();
 
     }
 
@@ -28,7 +34,13 @@ public class MovimentoVacina : MonoBehaviour
             );
 
             projetil.velocity = transform.up * velocidadeProjetil;
+
+            Vector3 direcao = transform.up * coice;
+            meuRigidbody.AddForce(direcao, ForceMode2D.Force);
+
+            somDoTiro.Play();
         }
+        
     }
 
     void FixedUpdate()
@@ -60,6 +72,8 @@ public class MovimentoVacina : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D outro)
     {
+        gripezinha.Play();
         Destroy(gameObject);
+        if(FimDeJogo != null) FimDeJogo();
     }
 }
